@@ -1,1 +1,7 @@
-This is a very simple project, so just click and see the [test.cpp](src/test.cpp).
+# Do something useless with C++ templates
+
+## [SLR in C++ templates](SLR)
+SLR stands for `Simple LR parser`, actually there is no parser here, it just calculates all of the generations.
+
+## [Dijkstra in C++ templates](Dijkstra)
+The Dijkstra algorithm for shortest path, but in templates args.
