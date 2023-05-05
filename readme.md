@@ -10,5 +10,6 @@ The Dijkstra algorithm for shortest path, but in templates args.
 LLRB stands for `Left Leaning Red-Black` tree, but in templates args.
 
 ## [Indexing type sequence](IndexTypeSequence)
-Given dictionary `std::tuple<Ts...>`, find `std::index_sequence<Is...>`, 
-whose index is corresponding to the dictionary, and types in from a given `std::tuple<Us...>`.
+For a known type dictionary `std::tuple<Ts...>`, and for a given type
+sequence `std::tuple<Us...>`, find `std::index_sequence<Is...> `, where
+index is the index value in the dictionary of each type in the given type sequence.
