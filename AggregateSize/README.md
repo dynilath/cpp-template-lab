@@ -2,6 +2,8 @@
 
 How many parts an aggergate would use in aggergate initialization?
 
+[Online Compiler Explorer(godbolt)](https://gcc.godbolt.org/z/sbrGMrfYb)
+
 ```cpp
 struct ex0 {};
 

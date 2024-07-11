@@ -1,5 +1,7 @@
 # Dijkstra in C++ templates
 
+[Online Compiler Explorer(godbolt)](https://gcc.godbolt.org/z/3cxTn7fK5)
+
 ```C++
 struct V1 {};
 struct V2 {};
