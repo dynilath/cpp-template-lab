@@ -1,26 +1,28 @@
 #include <iostream>
 #include <utility>
 
-template<typename T, size_t ...Ns>
+template <typename I, typename T, size_t... Ns>
 consteval auto indexing_array_impl(std::index_sequence<Ns...>) {
-    using value_type = std::remove_extent_t<decltype(T::value)>;
-    return std::integer_sequence<value_type, T::value[Ns]...>{};
+    return std::integer_sequence<I, T::value[Ns]...>{};
 }
 
-template<typename T> requires std::same_as<std::remove_cvref_t<decltype(T::value[0])>, int>
+template <typename I, typename T>
+    requires std::same_as<std::remove_cvref_t<decltype(T::value[0])>, I>
 consteval auto indexing_array() {
     constexpr auto ext = std::extent_v<decltype(T::value)>;
-    return indexing_array_impl<T>(std::make_index_sequence<ext>{});
+    return indexing_array_impl<I, T>(std::make_index_sequence<ext>{});
 }
 
-template<typename T> requires std::same_as<std::remove_cvref_t<decltype(T::value)>,int>
+template <typename I, typename T>
+    requires std::same_as<std::remove_cvref_t<decltype(T::value)>, I>
 consteval auto indexing_array() {
-    return std::integer_sequence<decltype(T::value), T::value>{};
+    return std::integer_sequence<I, T::value>{};
 }
 
-template<typename T> requires (!requires { T::value; })
+template <typename I, typename T>
+    requires(!requires { T::value; })
 consteval auto indexing_array() {
-    return std::integer_sequence<const int>{};
+    return std::integer_sequence<I>{};
 }
 
 template <typename T, T... Ls, T... Rs, typename... Us>
@@ -29,8 +31,8 @@ consteval auto join_index_sequence(std::integer_sequence<T, Ls...>, std::integer
     else return join_index_sequence(std::integer_sequence<T, Ls..., Rs...>{}, us...);
 }
 
-template<typename ...Ts>
-using join_index_sequence_t = decltype(join_index_sequence(indexing_array<Ts>()...));
+template <typename I, typename... Ts>
+using join_index_sequence_t = decltype(join_index_sequence(indexing_array<I, Ts>()...));
 
 struct ex0 {};
 
@@ -43,10 +45,8 @@ struct ex2 {
 };
 
 template <int... Ns>
-void print_sequence(std::integer_sequence<const int, Ns...>) {
+void print_sequence(std::integer_sequence<int, Ns...>) {
     ((std::cout << Ns << ' '), ...);
 }
 
-int main() {
-    print_sequence(join_index_sequence_t<ex0, ex1, ex2>{});
-}
+int main() { print_sequence(join_index_sequence_t<int, ex0, ex1, ex2>{}); }
